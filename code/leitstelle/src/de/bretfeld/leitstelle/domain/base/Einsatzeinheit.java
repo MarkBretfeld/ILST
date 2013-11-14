@@ -1,4 +1,4 @@
-package de.bretfeld.ilst.stammdaten.entity;
+package de.bretfeld.leitstelle.domain.base;
 
 import java.util.List;
 
@@ -6,12 +6,12 @@ public class Einsatzeinheit {
 
 	private String name;
 	private List<Einsatzmittel> einsatzmittelListe;
-	private List<Alarmschleife> alarmschleifen;
+	private Alarmschleife alarmschleife;
 
-	public Einsatzeinheit(String name, List<Einsatzmittel> einsatzMittelListe, List<Alarmschleife> alarmschleifen) {
+	public Einsatzeinheit(String name, List<Einsatzmittel> einsatzMittelListe, Alarmschleife alarmschleife) {
 		this.name = name;
 		this.einsatzmittelListe = einsatzMittelListe;
-		this.alarmschleifen = alarmschleifen;
+		this.alarmschleife = alarmschleife;
 	}
 
 	public String getName() {
@@ -22,8 +22,8 @@ public class Einsatzeinheit {
 		return einsatzmittelListe;
 	}
 	
-	public List<Alarmschleife> getAlarmschleifen() {
-		return alarmschleifen;
+	public Alarmschleife getAlarmschleife() {
+		return alarmschleife;
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.bretfeld.ilst.stammdaten.entity;
+package de.bretfeld.leitstelle.domain.base;
 
 /**
  * @author Mark
