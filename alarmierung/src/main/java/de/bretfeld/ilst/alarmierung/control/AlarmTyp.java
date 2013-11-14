@@ -1,4 +1,4 @@
-package de.bretfeld.ilst.alarmierung.boundary;
+package de.bretfeld.ilst.alarmierung.control;
 
 /**
  * Hier werden die verschiedenen Alarmierungstypen hinterlegt.

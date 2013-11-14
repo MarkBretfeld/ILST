@@ -1,14 +1,16 @@
-package de.bretfeld.ilst.alarmierung.boundary;
+package de.bretfeld.ilst.alarmierung.control;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
+import de.bretfeld.ilst.alarmierung.boundary.exception.AlarmierungException;
 import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;
 
 /**
@@ -24,47 +26,13 @@ import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;
 public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 
 	private static final int FREQUENCY = 44100;
-
-	private ArrayList<Double> fiveToneList = new ArrayList<Double>();
-
+	
 	public AbstractAnalogAlarmierung() {
 		super();
 	}
 
-	/**
-	 * Generiert einen Ton.
-	 * 
-	 * @param herz
-	 *            Basisfrequenz des Tones.
-	 * @param milliseconds
-	 *            Dauer der Abspiellänge.
-	 * @param volume
-	 *            Ton von 0 (stumm) bis 100 (max.).
-	 * @param buf
-	 * @param stream2
-	 * @param sirene
-	 *            Whether to add an harmonic, one octave up.
-	 * @throws InterruptedException
-	 * @throws IOException
-	 */
-	private ByteArrayOutputStream generateWeckton(int milliseconds, int volume,
-			ByteArrayOutputStream stream) {
-
-		for (int j = 0; j < 11; j++) {
-			stream = generateToneToStream(milliseconds, volume, stream, 2600.0,
-					0.0);
-
-			// Pause wird beim letzten Mal weggelassen
-			if (j < 10)
-				stream = generatePause(250, volume, stream);
-		}
-
-		return stream;
-
-	}
-
 	@Override
-	public void alarmieren(ByteArrayOutputStream stream) {
+	public void alarmieren(ByteArrayOutputStream stream) throws AlarmierungException {
 
 		AudioFormat af = new AudioFormat(FREQUENCY, 8, 2, true, false);
 
@@ -72,16 +40,6 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 
 			sdl.open();
 			sdl.start();
-
-			// if (weckton) {
-			// generateWeckton(210, 50, buf, stream);
-			// generatePause(600, volume, buf, stream);
-			// }
-			//
-			// if (sirene) {
-			// createSirenenton(volume, buf, stream);
-			// generatePause(600, volume, buf, stream);
-			// }
 
 			sdl.write(stream.toByteArray(), 0, stream.toByteArray().length);
 
@@ -91,14 +49,14 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 			sdl.stop();
 
 		} catch (IOException e) {
-			// throw new AlarmierungException(e);
+			 throw new AlarmierungException(e);
 		} catch (LineUnavailableException e1) {
 			// throw new AlarmierungException(e1);
 		}
 	}
 
 	protected ByteArrayOutputStream createFuenftonFolge(
-			ArrayList<Double> soundValues, int milliseconds, int volume,
+			List<Double> soundValues, int milliseconds, int volume,
 			ByteArrayOutputStream stream) {
 
 		if (stream == null) {
@@ -107,15 +65,15 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 
 		for (int i = 0; i < 2; i++) {
 			for (Double herz : soundValues) {
-				generateToneToStream(milliseconds, volume, stream, herz, 0.0);
+				stream = erzeugeToene(milliseconds, volume, stream, herz, 0.0);
 			}
-			generatePause(600, volume, stream);
+			stream = generatePause(600, volume, stream);
 		}
 
 		return stream;
 	}
 
-	protected ByteArrayOutputStream generateToneToStream(int milliseconds,
+	protected ByteArrayOutputStream erzeugeToene(int milliseconds,
 			int volume, ByteArrayOutputStream stream, Double herz, double herz1) {
 
 		byte[] buf = new byte[2];
@@ -135,20 +93,20 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 
 	protected ByteArrayOutputStream generatePause(int milliseconds, int volume,
 			ByteArrayOutputStream stream) {
-		stream = generateToneToStream(milliseconds, volume, stream, 0.0, 0.0);
+		stream = erzeugeToene(milliseconds, volume, stream, 0.0, 0.0);
 		return stream;
 	}
 
 	/**
-	 * Liest eine 5-Tonfolge ein und übersetzt die Ziffern in Frequenzen nach
-	 * dem ZVEI-Standard.
+	 * Generiert aus der übergebene 5-Tonfolge die entsprechenden
+	 * Frequenzen, die zur Erzeugung der Töne verwendet werden. Die Frequenzen
+	 * entsprechen den ZVEI-Standard.
 	 * 
-	 * @param tone
-	 *            - die 5-Tonfolge
-	 * @return fiveToneList
+	 * @param fiveTone die 5-Tonfolge
+	 * @return Eine Liste mit den generierten Frequenzen der 5-Tonfolge.
 	 */
-	protected ArrayList<Double> getAlarmToene(String fiveTone) {
-		fiveToneList.clear();
+	protected List<Double> getAlarmToene(String fiveTone) {
+		List<Double> fuenfToene = new ArrayList<>();
 
 		double freq = 0;
 		char cTemp = 0;
@@ -207,10 +165,10 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 				freq = 2600;
 				break;
 			}
-			fiveToneList.add(freq);
+			fuenfToene.add(freq);
 			cTemp = c;
 		}
-		return fiveToneList;
+		return fuenfToene;
 	}
 
 	/*********************************************************************************************
