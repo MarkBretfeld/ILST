@@ -1,16 +1,9 @@
-/**
- * 
- */
-package de.bretfeld.ilst.stammdaten.entity;
+package de.bretfeld.leitstelle.domain.base;
 
-/**
- * @author Mark
- * 
- */
-public class Stadt {
+public class Strasse {
 
 	private String name;
-
+	
 	public String getName() {
 		return name;
 	}
@@ -18,7 +11,7 @@ public class Stadt {
 	@Override
 	public int hashCode() {
 		int hash = 7;
-		hash = 31 * hash + ((null == name) ? 0 : name.hashCode());
+		hash = 31 * hash + (null == name ? 0 : name.hashCode());
 		return hash;
 	}
 
@@ -28,8 +21,9 @@ public class Stadt {
 			return true;
 		if ((obj == null) || (obj.getClass() != this.getClass()))
 			return false;
-		Stadt other = (Stadt) obj;
-		return (name == other.name || (name != null && name.equals(other.name)));
+		Strasse strasse = (Strasse) obj;
+		return name == strasse.name || name != null
+				&& name.equals(strasse.name);
 	}
 
 }
