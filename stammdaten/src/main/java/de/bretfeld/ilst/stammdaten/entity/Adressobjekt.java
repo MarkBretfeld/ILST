@@ -3,21 +3,58 @@
  */
 package de.bretfeld.ilst.stammdaten.entity;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+
+import application.AbstractEntity;
+
 /**
  * This class represents an object in the area of the Leitstelle
  * 
- * @author Mark
+ * @author Mark Bretfeld
+ * @version 0.1
  * 
  */
-public abstract class Adressobjekt {
+@MappedSuperclass
+public abstract class Adressobjekt extends AbstractEntity {
 
-	private String name;
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "OBJEKT_NAME", unique = true)
+	private String objektName;
+
+	@ManyToOne
+	@JoinColumn(name = "STRASSE_ID", referencedColumnName = "ID")
 	private Strasse strasse;
-	private Stadt stadt;
+
+	@Column(name = "HAUSNUMMER")
+	private String hausnummer;
+
+	@ManyToOne
+	@JoinColumn(name = "STADTTEIL_ID", referencedColumnName = "ID")
 	private Stadtteil stadtteil;
 
+	/** Wenn >true<, dann hat das Objekt eine BMA */
+	@Column(name = "HAS_BMA")
+	private boolean hasBma;
+
+	protected Adressobjekt() {
+
+	}
+
+	public Adressobjekt(String objektName, Strasse strasse, String hausnummer,
+			Stadtteil stadtteil) {
+		super();
+		this.objektName = objektName;
+		this.strasse = strasse;
+		this.hausnummer = hausnummer;
+		this.stadtteil = stadtteil;
+	}
+
 	public String getName() {
-		return name;
+		return objektName;
 	}
 
 	public Strasse getStrasse() {
@@ -25,7 +62,7 @@ public abstract class Adressobjekt {
 	}
 
 	public Stadt getStadt() {
-		return stadt;
+		return stadtteil.getStadt();
 	}
 
 	public String getPlz() {
@@ -36,35 +73,87 @@ public abstract class Adressobjekt {
 		return stadtteil;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if ((obj == null) || (obj.getClass() != this.getClass()))
-			return false;
-		Adressobjekt adressobjekt = (Adressobjekt) obj;
-		boolean isEqual = name == adressobjekt.name
-				|| (name != null && name.equals(adressobjekt.name));
-		isEqual = isEqual
-				&& (strasse == adressobjekt.strasse || (strasse != null && strasse
-						.equals(adressobjekt.strasse)));
-		isEqual = isEqual
-				&& (stadt == adressobjekt.stadt || (stadt != null && stadt
-						.equals(adressobjekt.stadt)));
-		isEqual = isEqual
-				&& (stadtteil == adressobjekt.stadtteil || (stadtteil != null && stadtteil
-						.equals(adressobjekt.stadtteil)));
-		return isEqual;
-
+	public String getHausnummer() {
+		return hausnummer;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		int hash = 7;
-		hash = 31 * hash + (null == name ? 0 : name.hashCode());
-		hash = 31 * hash + (null == strasse ? 0 : strasse.hashCode());
-		hash = 31 * hash + (null == stadt ? 0 : stadt.hashCode());
-		hash = 31 * hash + (null == stadtteil ? 0 : stadtteil.hashCode());
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((hausnummer == null) ? 0 : hausnummer.hashCode());
+		result = prime * result
+				+ ((objektName == null) ? 0 : objektName.hashCode());
+		result = prime * result
+				+ ((stadtteil == null) ? 0 : stadtteil.hashCode());
+		result = prime * result + ((strasse == null) ? 0 : strasse.hashCode());
+		return result;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Adressobjekt)) {
+			return false;
+		}
+		Adressobjekt other = (Adressobjekt) obj;
+		if (hausnummer == null) {
+			if (other.hausnummer != null) {
+				return false;
+			}
+		} else if (!hausnummer.equals(other.hausnummer)) {
+			return false;
+		}
+		if (objektName == null) {
+			if (other.objektName != null) {
+				return false;
+			}
+		} else if (!objektName.equals(other.objektName)) {
+			return false;
+		}
+		if (stadtteil == null) {
+			if (other.stadtteil != null) {
+				return false;
+			}
+		} else if (!stadtteil.equals(other.stadtteil)) {
+			return false;
+		}
+		if (strasse == null) {
+			if (other.strasse != null) {
+				return false;
+			}
+		} else if (!strasse.equals(other.strasse)) {
+			return false;
+		}
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Adressobjekt [objektName=" + objektName + ", strasse="
+				+ strasse + ", hausnummer=" + hausnummer + ", stadtteil="
+				+ stadtteil + "]";
+	}
+
 }
