@@ -1,11 +1,50 @@
 package de.bretfeld.ilst.stammdaten.entity;
 
-public class Strasse {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import application.AbstractEntity;
+
+/**
+ * Die Strasse muss eigentlich nicht weiter erklärt werden.
+ * 
+ * @author Mark Bretfeld
+ * @version 0.1
+ * 
+ */
+@Entity
+public class Strasse extends AbstractEntity {
+
+	private static final long serialVersionUID = 1L;
+
+	/** Der Name der Strasse */
+	@Column(name = "NAME")
 	private String name;
-	
+
+	/** Der Stadtteil, in dem die Strasse liegt */
+	@ManyToOne
+	@JoinColumn(name = "STADTTEIL_ID", referencedColumnName = "ID")
+	private Stadtteil stadtteil;
+
+	protected Strasse() {
+	}
+
+	public Strasse(String name, Stadtteil stadtteil) {
+		super();
+		this.name = name;
+		this.stadtteil = stadtteil;
+	}
+
+	/** {@link #name} */
 	public String getName() {
 		return name;
+	}
+
+	/** {@link #stadtteil} */
+	public Stadtteil getStadtteil() {
+		return stadtteil;
 	}
 
 	@Override

@@ -36,9 +36,9 @@ public final class AlarmGenerator {
 					"List von Einsatzeinheiten darf nicht leer oder null sein");
 		}
 
-		Alarmierung alarmierung = new AlarmAnalog();
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
+		Alarmierung alarmierung = null;
+		
 		for (Einsatzeinheit einsatzeinheit : einsatzeinheiten) {
 
 			for (Alarmschleife alarmschleife : einsatzeinheit
@@ -48,6 +48,8 @@ public final class AlarmGenerator {
 					alarmierung = new SirenenalarmAnalog();
 				} else if (alarmschleife.isWeckton()) {
 					alarmierung = new FMEAlarmMitWeckton();
+				} else {
+				    alarmierung = new AlarmAnalog();
 				}
 
 				stream = alarmierung.alarmierungstonErzeugen(alarmschleife, stream);

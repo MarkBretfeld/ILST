@@ -3,27 +3,59 @@
  */
 package de.bretfeld.ilst.stammdaten.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import application.AbstractEntity;
+
 /**
- * @author Mark
+ * Das Stadtteil ist Teil einer Stadt
+ * 
+ * @author Mark Bretfeld
+ * @version 0.1
  * 
  */
-public class Stadtteil {
+@Entity
+public class Stadtteil extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
+
+	/** Der Name des Stadtteils */
+	@Column(name = "NAME")
 	private String name;
+
+	/** Die Postleitzahl des Stadtteils */
+	@Column(name = "PLZ")
 	private String plz;
+
+	/** Die Stadt, in dem das Stadtteil liegt */
+	@ManyToOne
+	@JoinColumn(name = "STADT_ID", referencedColumnName = "ID")
 	private Stadt stadt;
 
-	public Stadtteil() {
+	protected Stadtteil() {
 	}
 
+	public Stadtteil(String name, String plz, Stadt stadt) {
+		super();
+		this.name = name;
+		this.plz = plz;
+		this.stadt = stadt;
+	}
+
+	/** {@link #name} */
 	public String getName() {
 		return name;
 	}
 
+	/** {@link #plz} */
 	public String getPlz() {
 		return plz;
 	}
 
+	/** {@link #stadt} */
 	public Stadt getStadt() {
 		return stadt;
 	}

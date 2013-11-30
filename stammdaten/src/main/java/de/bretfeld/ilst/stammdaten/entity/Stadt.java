@@ -3,14 +3,36 @@
  */
 package de.bretfeld.ilst.stammdaten.entity;
 
-/**
- * @author Mark
- * 
- */
-public class Stadt {
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
+import application.AbstractEntity;
+
+/**
+ * Die Stadt in der verschiedene Objekte liegen.
+ * 
+ * @author Mark Bretfeld
+ * @version 0.1
+ */
+@Entity
+public class Stadt extends AbstractEntity {
+
+	private static final long serialVersionUID = 1L;
+
+	/** Der Name der Stadt. */
+	@Column(name = "NAME")
 	private String name;
 
+	protected Stadt() {
+
+	}
+
+	public Stadt(String name) {
+		super();
+		this.name = name;
+	}
+
+	/** {@link #name} */
 	public String getName() {
 		return name;
 	}

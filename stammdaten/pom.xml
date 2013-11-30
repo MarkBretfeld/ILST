@@ -9,4 +9,11 @@
   	<artifactId>super-pom</artifactId>
   	<version>0.1</version>
   </parent>
+  <dependencies>
+  	<dependency>
+  		<groupId>de.bretfeld.ilst</groupId>
+  		<artifactId>application</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
