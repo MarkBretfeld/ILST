@@ -36,7 +36,7 @@ public final class AlarmGenerator {
 					"List von Einsatzeinheiten darf nicht leer oder null sein");
 		}
 
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		ByteArrayOutputStream alarmierungStream = new ByteArrayOutputStream();
 		Alarmierung alarmierung = null;
 		
 		for (Einsatzeinheit einsatzeinheit : einsatzeinheiten) {
@@ -52,11 +52,11 @@ public final class AlarmGenerator {
 				    alarmierung = new AlarmAnalog();
 				}
 
-				stream = alarmierung.alarmierungstonErzeugen(alarmschleife, stream);
+				alarmierungStream = alarmierung.alarmierungstonErzeugen(alarmschleife, alarmierungStream);
 			}
 
 		}
-		alarmierung.alarmieren(stream);
+		alarmierung.alarmieren(alarmierungStream);
 	}
 
 }
