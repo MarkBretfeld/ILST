@@ -73,8 +73,8 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 		return stream;
 	}
 
-	protected ByteArrayOutputStream erzeugeToene(int milliseconds,
-			int volume, ByteArrayOutputStream stream, Double herz, double herz1) {
+	protected ByteArrayOutputStream erzeugeToene(double milliseconds,
+			int volume, ByteArrayOutputStream stream, Double herz, Double herz1) {
 
 		byte[] buf = new byte[2];
 
