@@ -91,7 +91,7 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 
 	public static void main(String[] args) throws AlarmierungException {
 
-		new FMSTonCreator().createFMSTon("796782822");
+		new FMSTonCreator().createFMSTon("796782828");
 	}
 
 	/**
