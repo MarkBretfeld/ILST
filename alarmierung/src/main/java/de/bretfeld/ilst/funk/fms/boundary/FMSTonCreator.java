@@ -21,10 +21,8 @@ import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
 public class FMSTonCreator extends AbstractAnalogAlarmierung {
 
 	@Override
-	public ByteArrayOutputStream alarmierungstonErzeugen(
+	public void alarmierungstonErzeugen(
 			Alarmschleife alarmschleife, ByteArrayOutputStream stream) {
-		return stream;
-
 	}
 
 	private ByteArrayOutputStream createFMSTon(String fahrzeugCode)
@@ -50,7 +48,7 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 			charList.add(bit);
 		}
 
-		List<Double> frequencyForBits = getFrequencyForBits(charList);
+		List<Integer> frequencyForBits = getFrequencyForBits(charList);
 		ByteArrayOutputStream stream = erzeugeToene(frequencyForBits,
 				new ByteArrayOutputStream());
 
@@ -82,10 +80,10 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 		return sb.toString().toCharArray();
 	}
 
-	private ByteArrayOutputStream erzeugeToene(List<Double> toene,
+	private ByteArrayOutputStream erzeugeToene(List<Integer> toene,
 			ByteArrayOutputStream stream) {
-		for (Double ton : toene) {
-			stream = erzeugeToene(0.8, 100, stream, ton, 0.0);
+		for (Integer ton : toene) {
+			stream = erzeugeToene(0.8, 100, stream, ton, 0);
 		}
 		return stream;
 	}
@@ -104,10 +102,10 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 	 *            die 5-Tonfolge
 	 * @return Eine Liste mit den generierten Frequenzen der 5-Tonfolge.
 	 */
-	protected List<Double> getFrequencyForBits(List<Character> bits) {
-		List<Double> fuenfToene = new ArrayList<>();
+	protected List<Integer> getFrequencyForBits(List<Character> bits) {
+		List<Integer> fuenfToene = new ArrayList<>();
 
-		double freq = 0;
+		int freq = 0;
 
 		// Zuweisung der Frequenzen zu den Ziffern
 		for (char c : bits) {

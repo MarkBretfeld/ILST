@@ -50,7 +50,7 @@ public class AlarmGenerator {
 
 				Alarmierung alarmierung = AlarmFactory.createAlarmierung(alarmschleife);
 
-				alarmierungStream = alarmierung.alarmierungstonErzeugen(alarmschleife, alarmierungStream);
+				alarmierung.alarmierungstonErzeugen(alarmschleife, alarmierungStream);
 			}
 
 		}

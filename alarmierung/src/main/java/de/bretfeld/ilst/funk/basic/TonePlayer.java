@@ -8,7 +8,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-import de.bretfeld.ilst.funk.alarmierung.control.Alarmierung;
+import de.bretfeld.ilst.funk.alarmierung.control.FunkComponentConstants;
 import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
 
 /**
@@ -20,10 +20,15 @@ import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
  */
 public final class TonePlayer {
 
+	/**
+	 * Read out of given stream and generate tones out of it.
+	 * @param stream to generate
+	 * @throws TonePlayerException
+	 */
 	public static void playTones(ByteArrayOutputStream stream)
 			throws TonePlayerException {
 
-		AudioFormat af = new AudioFormat(Alarmierung.FREQUENCY, 8, 2, true,
+		AudioFormat af = new AudioFormat(FunkComponentConstants.FREQUENCY, 8, 2, true,
 				false);
 
 		try (SourceDataLine sdl = AudioSystem.getSourceDataLine(af)) {

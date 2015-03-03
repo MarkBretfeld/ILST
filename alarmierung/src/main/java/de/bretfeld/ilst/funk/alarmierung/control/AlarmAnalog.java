@@ -17,14 +17,12 @@ import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
 public class AlarmAnalog extends AbstractAnalogAlarmierung {
 
 	@Override
-	public ByteArrayOutputStream alarmierungstonErzeugen(
+	public void alarmierungstonErzeugen(
 			Alarmschleife alarmschleife, ByteArrayOutputStream stream) {
 
 		String schleife = alarmschleife.getSchleife();
-		List<Double> alarmToene = getAlarmToene(schleife);
-		stream = createFuenftonFolge(alarmToene, 70, 50, stream);
-
-		return stream;
+		List<Integer> alarmToene = ermittleAlarmToene(schleife);
+		createFuenftonFolge(alarmToene, 70, 50, stream);
 	}
 
 }
