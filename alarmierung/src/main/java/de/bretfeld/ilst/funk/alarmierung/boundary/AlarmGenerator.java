@@ -5,7 +5,7 @@ import java.util.Queue;
 
 import de.bretfeld.ilst.funk.alarmierung.control.AlarmFactory;
 import de.bretfeld.ilst.funk.alarmierung.control.Alarmierung;
-import de.bretfeld.ilst.funk.basic.TonePlayer;
+import de.bretfeld.ilst.funk.basic.control.TonePlayer;
 import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
 import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
 import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;

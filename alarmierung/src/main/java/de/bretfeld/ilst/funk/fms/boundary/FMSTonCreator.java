@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.bretfeld.ilst.funk.alarmierung.control.AbstractAnalogAlarmierung;
-import de.bretfeld.ilst.funk.basic.TonePlayer;
+import de.bretfeld.ilst.funk.basic.control.TonePlayer;
 import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
 import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
 

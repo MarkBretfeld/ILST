@@ -1,4 +1,4 @@
-package de.bretfeld.ilst.funk.basic;
+package de.bretfeld.ilst.funk.basic.control;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
