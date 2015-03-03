@@ -1,4 +1,4 @@
-package de.bretfeld.ilst.alarmierung.control;
+package de.bretfeld.ilst.funk.alarmierung.control;
 
 import java.io.ByteArrayOutputStream;
 

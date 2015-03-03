@@ -1,16 +1,9 @@
-package de.bretfeld.ilst.alarmierung.control;
+package de.bretfeld.ilst.funk.alarmierung.control;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-
-import de.bretfeld.ilst.alarmierung.boundary.exception.AlarmierungException;
 import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;
 
 /**
@@ -29,30 +22,6 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 	
 	public AbstractAnalogAlarmierung() {
 		super();
-	}
-
-	@Override
-	public void alarmieren(ByteArrayOutputStream stream) throws AlarmierungException {
-
-		AudioFormat af = new AudioFormat(FREQUENCY, 8, 2, true, false);
-
-		try (SourceDataLine sdl = AudioSystem.getSourceDataLine(af)) {
-
-			sdl.open();
-			sdl.start();
-
-			sdl.write(stream.toByteArray(), 0, stream.toByteArray().length);
-
-			stream.flush();
-
-			sdl.drain();
-			sdl.stop();
-
-		} catch (IOException e) {
-			 throw new AlarmierungException(e);
-		} catch (LineUnavailableException e1) {
-			// throw new AlarmierungException(e1);
-		}
 	}
 
 	protected ByteArrayOutputStream createFuenftonFolge(

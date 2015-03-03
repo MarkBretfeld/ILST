@@ -1,14 +1,15 @@
 /**
  * 
  */
-package de.bretfeld.ilst.fms.boundary;
+package de.bretfeld.ilst.funk.fms.boundary;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.bretfeld.ilst.alarmierung.boundary.exception.AlarmierungException;
-import de.bretfeld.ilst.alarmierung.control.AbstractAnalogAlarmierung;
+import de.bretfeld.ilst.funk.alarmierung.control.AbstractAnalogAlarmierung;
+import de.bretfeld.ilst.funk.basic.TonePlayer;
+import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
 import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
 
 /**
@@ -27,7 +28,7 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 	}
 
 	private ByteArrayOutputStream createFMSTon(String fahrzeugCode)
-			throws AlarmierungException {
+			throws TonePlayerException {
 
 		List<Character> charList = new ArrayList<>();
 
@@ -53,7 +54,7 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 		ByteArrayOutputStream stream = erzeugeToene(frequencyForBits,
 				new ByteArrayOutputStream());
 
-		alarmieren(stream);
+		TonePlayer.playTones(stream);
 
 		return stream;
 	}
@@ -89,7 +90,7 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 		return stream;
 	}
 
-	public static void main(String[] args) throws AlarmierungException {
+	public static void main(String[] args) throws TonePlayerException {
 
 		new FMSTonCreator().createFMSTon("796782822");
 	}
