@@ -19,22 +19,35 @@ public class AlarmFactory {
 	 */
 	public static Alarmierung createAlarmierung(Alarmschleife schleife) {
 
-		final Alarmierung alarmierung;
+		Alarmierung alarmierung = null;
 
-		if (schleife.isFeueralarm()) {
-			alarmierung = new FeueralarmAnalog();
-		} else if (schleife.isProbealarm()) {
-			alarmierung = new ProbealarmAnalog();
-		} else if (schleife.isZivilschutzalarm()) {
-			alarmierung = new ZivilschutzalarmAnalog();
-		} else if (schleife.isZivilschutzentwarnung()) {
-			alarmierung = new ZivilschutzentwarnungAnalog();
-		} else if (schleife.isZivilschutzwarnung()) {
-			alarmierung = new ZivilschutzwarnungAnalog();
-		} else if (schleife.isWeckton()) {
-			alarmierung = new FMEAlarmMitWeckton();
-		} else {
+		switch (schleife.getAlarmTyp()) {
+		case FME:
 			alarmierung = new AlarmAnalog();
+			break;
+		case FUNK:
+			break;
+		case FEUERALARM:
+			alarmierung = new FeueralarmAnalog();
+			break;
+		case PROBEALARM:
+			alarmierung = new ProbealarmAnalog();
+			break;
+		case ZIVILSCHUTZALARM:
+			alarmierung = new ZivilschutzalarmAnalog();
+			break;
+		case ZIVILSCHUTZENTWARNUNG:
+			alarmierung = new ZivilschutzentwarnungAnalog();
+			break;
+		case ZIVILSCHUTZWARNUNG:
+			alarmierung = new ZivilschutzwarnungAnalog();
+			break;
+		case WECKTON:
+			alarmierung = new FMEAlarmMitWeckton();
+			break;
+		default:
+			alarmierung = new AlarmAnalog();
+			break;
 		}
 
 		return alarmierung;

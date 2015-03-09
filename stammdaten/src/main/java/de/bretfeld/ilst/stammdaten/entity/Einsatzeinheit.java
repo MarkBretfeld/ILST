@@ -1,14 +1,14 @@
 package de.bretfeld.ilst.stammdaten.entity;
 
-import java.util.List;
+import java.util.Set;
 
 public class Einsatzeinheit {
 
 	private String name;
-	private List<Einsatzmittel> einsatzmittelListe;
-	private List<Alarmschleife> alarmschleifen;
+	private Set<Einsatzmittel> einsatzmittelListe;
+	private Set<Alarmschleife> alarmschleifen;
 
-	public Einsatzeinheit(String name, List<Einsatzmittel> einsatzMittelListe, List<Alarmschleife> alarmschleifen) {
+	public Einsatzeinheit(String name, Set<Einsatzmittel> einsatzMittelListe, Set<Alarmschleife> alarmschleifen) {
 		this.name = name;
 		this.einsatzmittelListe = einsatzMittelListe;
 		this.alarmschleifen = alarmschleifen;
@@ -18,11 +18,11 @@ public class Einsatzeinheit {
 		return name;
 	}
 
-	public List<Einsatzmittel> getEinsatzmittelListe() {
+	public Set<Einsatzmittel> getEinsatzmittelListe() {
 		return einsatzmittelListe;
 	}
 	
-	public List<Alarmschleife> getAlarmschleifen() {
+	public Set<Alarmschleife> getAlarmschleifen() {
 		return alarmschleifen;
 	}
 

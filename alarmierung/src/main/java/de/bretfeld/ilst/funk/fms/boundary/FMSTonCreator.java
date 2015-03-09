@@ -7,23 +7,17 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.bretfeld.ilst.funk.alarmierung.control.AbstractAnalogAlarmierung;
+import de.bretfeld.ilst.funk.alarmierung.control.AbstractTonerzeuger;
 import de.bretfeld.ilst.funk.basic.control.TonePlayer;
 import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
-import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
 
 /**
- * Kreiert FMS Töne, z.B. das Klacken im Funk.
+ * Kreiert FMS TÃ¶ne, z.B. das Klacken im Funk.
  * 
  * @author Mark
  * 
  */
-public class FMSTonCreator extends AbstractAnalogAlarmierung {
-
-	@Override
-	public void alarmierungstonErzeugen(
-			Alarmschleife alarmschleife, ByteArrayOutputStream stream) {
-	}
+public class FMSTonCreator extends AbstractTonerzeuger {
 
 	private ByteArrayOutputStream createFMSTon(String fahrzeugCode)
 			throws TonePlayerException {
@@ -94,8 +88,8 @@ public class FMSTonCreator extends AbstractAnalogAlarmierung {
 	}
 
 	/**
-	 * Generiert aus der übergebene 5-Tonfolge die entsprechenden Frequenzen,
-	 * die zur Erzeugung der Töne verwendet werden. Die Frequenzen entsprechen
+	 * Generiert aus der Ã¼bergebenen 5-Tonfolge die entsprechenden Frequenzen,
+	 * die zur Erzeugung der TÃ¶ne verwendet werden. Die Frequenzen entsprechen
 	 * den ZVEI-Standard.
 	 * 
 	 * @param fiveTone

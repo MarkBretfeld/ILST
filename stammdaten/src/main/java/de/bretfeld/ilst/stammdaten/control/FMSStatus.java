@@ -3,38 +3,37 @@ package de.bretfeld.ilst.stammdaten.control;
 import de.bretfeld.ilst.stammdaten.entity.Einsatzmittel;
 
 /**
- * Die Klasse {@link FMSStatus} enthält alle nach BOS gültigen FMS-Status
- * für die Richtung Leitstelle --> Einsatzeinheit und Einsatzeinheit --> Leitstelle.
- * Die Unterteilung zwischen Rettungsdienst, Feuerwehr und Polizei ist nötig, da hier
- * jeweils andere Möglichkeiten der Benutzung vorgegeben sind.
+ * Die Klasse {@link FMSStatus} enthï¿½lt alle nach BOS gÃ¼ltigen FMS-Status
+ * fÃ¼r die Richtung Leitstelle --> Einsatzeinheit und Einsatzeinheit --> Leitstelle.
+ * Die Unterteilung zwischen Rettungsdienst, Feuerwehr und Polizei ist nÃ¶tig, da hier
+ * jeweils andere MÃ¶glichkeiten der Benutzung vorgegeben sind.
  * 
  * @author Mark Bretfeld
- * @version 0.1
  * 
  */
 public enum FMSStatus {
 
 	// Meldeweg Einsatzeinheit --> Leitstelle
-	// Für die Werte müssen die Status an sich verwendet werden, da es hier pro Orga eine andere
+	// FÃ¼r die Werte mÃ¼ssen die Status an sich verwendet werden, da es hier pro Orga eine andere
 	// Belegung gibt.
 	
-	STATUS_1("1", "Einsatzbereit über Funk", "Einsatzbereit über Funk", "Einsatzbereit über Funk"), 
+	STATUS_1("1", "Einsatzbereit Ã¼ber Funk", "Einsatzbereit Ã¼ber Funk", "Einsatzbereit Ã¼ber Funk"), 
 	STATUS_2("2", "Einsatzbereit auf Wache", "Einsatzbereit auf Wache", "Einsatzbereit auf Wache"),
-	STATUS_3("3", "Einsatz übernommen", "Einsatz übernommen", "Einsatz übernommen"),
+	STATUS_3("3", "Einsatz Ã¼bernommen", "Einsatz Ã¼bernommen", "Einsatz Ã¼bernommen"),
 	STATUS_4("4", "Ankunft am Einsatzort", "Ankunft am Einsatzort", "Ankunft am Einsatzort"),
 	STATUS_5("5", "Sprechwunsch", "Sprechwunsch", "Sprechwunsch"),
-	STATUS_6("6", "Nicht einsatzbereit", "Nicht einsatzbereit", "Temporär ausbuchen"),
+	STATUS_6("6", "Nicht einsatzbereit", "Nicht einsatzbereit", "TemporÃ¤r ausbuchen"),
 	STATUS_7("7", "Patient aufgenommen", "", "Infowunsch"),
-	STATUS_8("8", "am Transportziel", "", "Einsatz übernommen"),
+	STATUS_8("8", "am Transportziel", "", "Einsatz Ã¼bernommen"),
 	STATUS_9("9", "Handquittung", "Handquittung", "Handquittung"),
 	STATUS_0("0", "Notruf", "Notruf", "Notruf"),
 
 	// Meldeweg Leitstelle --> Einsatzeinheit
 	
 	STATUS_A("A", "Sammelruf (An Alle)", "Sammelruf (An Alle)", "Sammelruf (An Alle)"),
-	STATUS_E("E", "Einrücken", "Einrücken", "Eigensicherung"),
-	STATUS_C("C", "Melden Sie sich für Einsatzübernahme", "Melden Sie sich für Einsatzübernahme", "Fremdhörer ausschalten"),
-	STATUS_F("F", "Kommen Sie über Draht", "Kommen Sie über Draht", "Kommen Sie über Draht"),
+	STATUS_E("E", "EinrÃ¼cken", "EinrÃ¼cken", "Eigensicherung"),
+	STATUS_C("C", "Melden Sie sich fï¿½r EinsatzÃ¼bernahme", "Melden Sie sich fÃ¼r Einsatzï¿½bernahme", "FremdhÃ¶rer ausschalten"),
+	STATUS_F("F", "Kommen Sie Ã¼ber Draht", "Kommen Sie Ã¼ber Draht", "Kommen Sie Ã¼ber Draht"),
 	STATUS_H("H", "Fahren Sie Wache an", "Fahren Sie Wache an", "Haftbefehl"),
 	STATUS_J("J", "Sprechaufforderung", "Sprechaufforderung", "Sprechaufforderung"),
 	STATUS_L("L", "Geben Sie Lagemeldung", "Geben Sie Lagemeldung", "Geben Sie Lagemeldung"),
@@ -42,8 +41,8 @@ public enum FMSStatus {
 	STATUS_U("U", "Unerlaubte Statusfolge", "", ""),
 	STATUS_c("c", "Status korrigieren", "Status korrigieren", ""),
 	STATUS_d("d", "Transportziel durchgeben", "", ""),
-	STATUS_h("h", "Zielklinik verständigt", "", ""),
-	STATUS_o("o", "Warten, alle Abfrageplätze belegt", "Warten, alle Abfrageplätze belegt", ""),
+	STATUS_h("h", "Zielklinik verstÃ¤ndigt", "", ""),
+	STATUS_o("o", "Warten, alle AbfrageplÃ¤tze belegt", "Warten, alle AbfrageplÃ¤tze belegt", ""),
 	STATUS_u("u", "Verstanden", "Verstanden", "");
 
 	private String status;
@@ -60,7 +59,7 @@ public enum FMSStatus {
 	}
 
 	/**
-	 * Gibt den Status als Zahl zurück. Verwendung für UI-Anzeige.
+	 * Gibt den Status als Zahl zurï¿½ck. Verwendung fï¿½r UI-Anzeige.
 	 * 
 	 * @return den FMS Status als Zahl.
 	 */
@@ -69,11 +68,11 @@ public enum FMSStatus {
 	}
 
 	/**
-	 * Gibt die Beschreibung des FMS-Status für das jeweilige Einsatzmittel zurück.
+	 * Gibt die Beschreibung des FMS-Status fï¿½r das jeweilige Einsatzmittel zurï¿½ck.
 	 * Hierbei wird festgestellt, ob es sich beim Einsatzmittel um Feuerwehr/THW, Rettungsdienst
 	 * oder Polizei handelt.
 	 * 
-	 * @return die Beschreibung des FMS-Status für das jeweilige Einsatzmittel zurück.
+	 * @return die Beschreibung des FMS-Status fï¿½r das jeweilige Einsatzmittel zurï¿½ck.
 	 */
 	public String getBeschreibungByEinsatzmittel(Einsatzmittel einsatzmittel) {
 		String beschreibung = "";

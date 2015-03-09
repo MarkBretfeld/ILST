@@ -41,20 +41,22 @@ public class AlarmGenerator {
 					"List von Einsatzeinheiten darf nicht leer oder null sein");
 		}
 
-		ByteArrayOutputStream alarmierungStream = new ByteArrayOutputStream();
 		
 		for (Einsatzeinheit einsatzeinheit : einsatzeinheiten) {
 
 			for (Alarmschleife alarmschleife : einsatzeinheit
 					.getAlarmschleifen()) {
 
+				ByteArrayOutputStream alarmierungStream = new ByteArrayOutputStream();
+				System.out.println("Alarmierung Einheit: " + einsatzeinheit.getName());
+				
 				Alarmierung alarmierung = AlarmFactory.createAlarmierung(alarmschleife);
 
 				alarmierung.alarmierungstonErzeugen(alarmschleife, alarmierungStream);
+				TonePlayer.playTones(alarmierungStream);
 			}
 
 		}
-		TonePlayer.playTones(alarmierungStream);
 	}
 
 }

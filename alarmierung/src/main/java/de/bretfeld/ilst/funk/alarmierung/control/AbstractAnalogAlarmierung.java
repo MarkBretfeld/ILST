@@ -9,19 +9,20 @@ import java.util.Map;
 import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;
 
 /**
- * Hier werden Alarmierung nach dem ZVEI-Standard ausgeführt. Die Klasse erhält
+ * Hier werden Alarmierung nach dem ZVEI-Standard ausgefï¿½hrt. Die Klasse erhï¿½lt
  * eine Liste an zu alarmierenden {@link Einsatzeinheit}en und zieht sich aus
- * diesen die jeweiligen Alarmschleifen. Diese Schleifen werden dann über eine
+ * diesen die jeweiligen Alarmschleifen. Diese Schleifen werden dann ï¿½ber eine
  * SourceDataLine ausgegeben.
  * 
  * @author Mark Bretfeld
  */
-public abstract class AbstractAnalogAlarmierung implements Alarmierung {
+public abstract class AbstractAnalogAlarmierung extends AbstractTonerzeuger implements Alarmierung {
 	
 	final Map<Character, Integer> frequencies = new HashMap<>();
 
 	public AbstractAnalogAlarmierung() {
 		super();
+		frequencies.clear();
 		fillFrequencies();
 	}
 
@@ -43,35 +44,9 @@ public abstract class AbstractAnalogAlarmierung implements Alarmierung {
 		return stream;
 	}
 
-	protected ByteArrayOutputStream erzeugeToene(double milliseconds,
-			int volume, ByteArrayOutputStream stream, double herz, double herz1) {
-
-		byte[] buf = new byte[2];
-
-		for (int j = 0; j < milliseconds * FunkComponentConstants.FREQUENCY
-				/ 1000; j++) {
-			double angle = j / (FunkComponentConstants.FREQUENCY / herz) * 2.0
-					* Math.PI;
-			buf[0] = (byte) (Math.sin(angle) * volume);
-
-			if (buf.length == 2) {
-				double angle1 = j / (FunkComponentConstants.FREQUENCY / herz1)
-						* 2.0 * Math.PI;
-				buf[1] = (byte) (Math.sin(angle1) * volume);
-			}
-			stream.write(buf, 0, buf.length);
-		}
-		return stream;
-	}
-
-	protected ByteArrayOutputStream generatePause(int milliseconds, int volume,
-			ByteArrayOutputStream stream) {
-		return erzeugeToene(milliseconds, volume, stream, 0, 0);
-	}
-
 	/**
-	 * Generiert aus der übergebene 5-Tonfolge die entsprechenden Frequenzen,
-	 * die zur Erzeugung der Töne verwendet werden. Die Frequenzen entsprechen
+	 * Generiert aus der ï¿½bergebene 5-Tonfolge die entsprechenden Frequenzen,
+	 * die zur Erzeugung der Tï¿½ne verwendet werden. Die Frequenzen entsprechen
 	 * den ZVEI-Standard.
 	 * 
 	 * @param fiveTone
