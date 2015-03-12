@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.bretfeld.ilst.funk.fms.boundary;
 
@@ -13,120 +13,137 @@ import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
 
 /**
  * Kreiert FMS Töne, z.B. das Klacken im Funk.
- * 
- * @author Mark
- * 
+ *
+ * @author Mark Bretfeld
+ *
  */
 public class FMSTonCreator extends AbstractTonerzeuger {
 
-	private ByteArrayOutputStream createFMSTon(String fahrzeugCode)
-			throws TonePlayerException {
+    public ByteArrayOutputStream createFMSTon(String fahrzeugCode)
+            throws TonePlayerException {
 
-		List<Character> charList = new ArrayList<>();
+        List<Character> charList = new ArrayList<>();
 
-		String vorlaufAndBlock = "111111111100011010";
+        String vorlaufAndBlock = "11111111111100011010";
 
-		for (char bit : vorlaufAndBlock.toCharArray()) {
-			charList.add(bit);
-		}
+        for (char bit : vorlaufAndBlock.toCharArray()) {
+            charList.add(bit);
+        }
 
-		char[] parseFahrzeugCode = parseFahrzeugCode(fahrzeugCode);
+        char[] parseFahrzeugCode = parseFahrzeugCode(fahrzeugCode);
 
-		for (char fahrzeugCodeBit : parseFahrzeugCode) {
-			charList.add(fahrzeugCodeBit);
-		}
+        for (char fahrzeugCodeBit : parseFahrzeugCode) {
+            charList.add(fahrzeugCodeBit);
+        }
 
-		String lastBits = "1111";
+        String lastBits = "1111";
 
-		for (char bit : lastBits.toCharArray()) {
-			charList.add(bit);
-		}
+        for (char bit : lastBits.toCharArray()) {
+            charList.add(bit);
+        }
 
-		List<Integer> frequencyForBits = getFrequencyForBits(charList);
-		ByteArrayOutputStream stream = erzeugeToene(frequencyForBits,
-				new ByteArrayOutputStream());
+        List<Integer> frequencyForBits = getFrequencyForBits(charList);
+        ByteArrayOutputStream stream = erzeugeToene(frequencyForBits,
+                new ByteArrayOutputStream());
 
-		TonePlayer.playTones(stream);
+        TonePlayer.playTones(stream);
 
-		return stream;
-	}
+        return stream;
+    }
 
-	private char[] parseFahrzeugCode(String fahrzeugCode) {
+    private char[] parseFahrzeugCode(String fahrzeugCode) {
 
-		// einstellig, hexadezimal
-		String bosKennung = fahrzeugCode.substring(0, 1);
-		// einstellig, hexadezimal
-		String landesKennung = fahrzeugCode.substring(1, 2);
-		// zweistellig, dezimal
-		String ortsKennung = fahrzeugCode.substring(2, 4);
-		// vierstellig, dezimal
-		String fahrzeugKennung = fahrzeugCode.substring(4, 8);
-		// einstellig, hexadezimal
-		String status = fahrzeugCode.substring(8, 9);
+        // einstellig, hexadezimal
+        String bosKennung = fahrzeugCode.substring(0, 1);
+        // einstellig, hexadezimal
+        String landesKennung = fahrzeugCode.substring(1, 2);
+        // zweistellig, dezimal
+        String ortsKennung = fahrzeugCode.substring(2, 4);
+        // vierstellig, dezimal
+        String fahrzeugKennung = fahrzeugCode.substring(4, 8);
+        // einstellig, hexadezimal
+        String status = fahrzeugCode.substring(8, 9);
 
-		StringBuilder sb = new StringBuilder();
-		sb.append(hexToBinary(bosKennung));
-		sb.append(hexToBinary(landesKennung));
-		sb.append(decimalToBinary(ortsKennung));
-		sb.append(decimalToBinary(fahrzeugKennung));
-		sb.append(hexToBinary(status));
+        StringBuilder sb = new StringBuilder();
+        sb.append(hexToBinary(bosKennung));
+        sb.append(hexToBinary(landesKennung));
+        sb.append(decimalToBinary(ortsKennung));
+        sb.append(decimalToBinary(fahrzeugKennung));
+        sb.append(hexToBinary(status));
+        
+        return sb.toString().toCharArray();
+    }
 
-		return sb.toString().toCharArray();
-	}
+    private ByteArrayOutputStream erzeugeToene(List<Integer> toene,
+            ByteArrayOutputStream stream) {
+        for (Integer ton : toene) {
+            stream = erzeugeToene(0.8, 100, stream, ton, 0);
+        }
+        return stream;
+    }
 
-	private ByteArrayOutputStream erzeugeToene(List<Integer> toene,
-			ByteArrayOutputStream stream) {
-		for (Integer ton : toene) {
-			stream = erzeugeToene(0.8, 100, stream, ton, 0);
-		}
-		return stream;
-	}
+    public static void main(String[] args) throws TonePlayerException {
 
-	public static void main(String[] args) throws TonePlayerException {
+        new FMSTonCreator().createFMSTon("9767828215");
+        new FMSTonCreator().createFMSTon("9767828215");
+    }
 
-		new FMSTonCreator().createFMSTon("796782822");
-	}
+    /**
+     * Generiert aus der übergebenen 5-Tonfolge die entsprechenden Frequenzen,
+     * die zur Erzeugung der Töne verwendet werden. Die Frequenzen entsprechen
+     * den ZVEI-Standard.
+     *
+     * @param bits die 5-Tonfolge
+     * @return Eine Liste mit den generierten Frequenzen der 5-Tonfolge.
+     */
+    protected List<Integer> getFrequencyForBits(List<Character> bits) {
+        List<Integer> fuenfToene = new ArrayList<>();
 
-	/**
-	 * Generiert aus der übergebenen 5-Tonfolge die entsprechenden Frequenzen,
-	 * die zur Erzeugung der Töne verwendet werden. Die Frequenzen entsprechen
-	 * den ZVEI-Standard.
-	 * 
-	 * @param fiveTone
-	 *            die 5-Tonfolge
-	 * @return Eine Liste mit den generierten Frequenzen der 5-Tonfolge.
-	 */
-	protected List<Integer> getFrequencyForBits(List<Character> bits) {
-		List<Integer> fuenfToene = new ArrayList<>();
+        int freq = 0;
 
-		int freq = 0;
+        // Zuweisung der Frequenzen zu den Ziffern
+        for (char c : bits) {
+            switch (c) {
+                case '1':
+                    freq = 1200;
+                    break;
 
-		// Zuweisung der Frequenzen zu den Ziffern
-		for (char c : bits) {
-			switch (c) {
-			case '1':
-				freq = 1200;
-				break;
+                case '0':
+                    freq = 1800;
+                    break;
+            }
+            fuenfToene.add(freq);
+        }
+        return fuenfToene;
+    }
 
-			case '0':
-				freq = 1800;
-				break;
-			}
-			fuenfToene.add(freq);
-		}
-		return fuenfToene;
-	}
+    protected String decimalToBinary(String dezimal) {
+        StringBuilder sb = new StringBuilder();
 
-	private String decimalToBinary(String dezimal) {
-		int i = Integer.parseInt(dezimal);
-		String bin = Integer.toBinaryString(i);
-		return bin;
-	}
+        for (Character c : dezimal.toCharArray()) {
+            String numberString = c.toString();
+            int number = Integer.parseInt(numberString);
+            format4BitDualCode(number, sb);
+        }
+        return sb.toString();
+    }
 
-	private String hexToBinary(String hex) {
-		int i = Integer.parseInt(hex, 16);
-		String bin = Integer.toBinaryString(i);
-		return bin;
-	}
+    protected String hexToBinary(String hex) {
+        StringBuilder sb = new StringBuilder();
+
+        for (Character c : hex.toCharArray()) {
+            String numberString = c.toString();
+            int number = Integer.parseInt(numberString, 16);
+            format4BitDualCode(number, sb);
+        }
+        return sb.toString();
+    }
+
+    private void format4BitDualCode(int number, StringBuilder sb) {
+        final String toBinaryString = Integer.toBinaryString(number);
+        StringBuilder formattedString = new StringBuilder(String.format("%4s", toBinaryString).replace(' ', '0'));
+        formattedString.reverse();
+        sb.append(formattedString.toString());
+    }
 
 }
