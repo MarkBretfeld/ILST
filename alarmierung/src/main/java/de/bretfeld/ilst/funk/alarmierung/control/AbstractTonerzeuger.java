@@ -2,11 +2,13 @@ package de.bretfeld.ilst.funk.alarmierung.control;
 
 import java.io.ByteArrayOutputStream;
 
-public class AbstractTonerzeuger {
-
-	public AbstractTonerzeuger() {
-		super();
-	}
+/**
+ * Generiert Töne mit verschiedenen Frequenzen.
+ * 
+ * @author Mark Bretfeld
+ *
+ */
+public abstract class AbstractTonerzeuger {
 	
 	protected ByteArrayOutputStream erzeugeToene(double milliseconds,
 			int volume, ByteArrayOutputStream stream, double herz, double herz1) {

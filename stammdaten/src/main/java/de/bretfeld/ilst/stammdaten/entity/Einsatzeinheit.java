@@ -1,54 +1,59 @@
 package de.bretfeld.ilst.stammdaten.entity;
 
-import java.util.Set;
+import javax.persistence.Entity;
 
-public class Einsatzeinheit {
+import application.AbstractEntity;
+
+@Entity
+public class Einsatzeinheit extends AbstractEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private Set<Einsatzmittel> einsatzmittelListe;
-	private Set<Alarmschleife> alarmschleifen;
+	private Alarmschleife alarmschleife;
 
-	public Einsatzeinheit(String name, Set<Einsatzmittel> einsatzMittelListe, Set<Alarmschleife> alarmschleifen) {
+	public Einsatzeinheit(String name, Alarmschleife alarmschleife) {
+		super();
 		this.name = name;
-		this.einsatzmittelListe = einsatzMittelListe;
-		this.alarmschleifen = alarmschleifen;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Set<Einsatzmittel> getEinsatzmittelListe() {
-		return einsatzmittelListe;
-	}
-	
-	public Set<Alarmschleife> getAlarmschleifen() {
-		return alarmschleifen;
+		this.alarmschleife = alarmschleife;
 	}
 
 	@Override
 	public int hashCode() {
-		int hash = 7;
-		hash = 31 * hash + (null == name ? 0 : name.hashCode());
-		hash = 31
-				* hash
-				+ (null == einsatzmittelListe ? 0 : einsatzmittelListe
-						.hashCode());
-
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((alarmschleife == null) ? 0 : alarmschleife.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if ((obj == null) || (obj.getClass() != this.getClass()))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Einsatzeinheit other = (Einsatzeinheit) obj;
-		return (name == other.name)
-				|| (name != null && name.equals(other.name))
-				&& ((einsatzmittelListe == other.einsatzmittelListe) || (einsatzmittelListe
-						.equals(other.einsatzmittelListe)));
-
+		if (alarmschleife == null) {
+			if (other.alarmschleife != null)
+				return false;
+		} else if (!alarmschleife.equals(other.alarmschleife))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Einsatzeinheit [name=" + name + ", alarmschleife="
+				+ alarmschleife + "]";
+	}
+
 }

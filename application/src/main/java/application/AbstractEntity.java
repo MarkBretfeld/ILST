@@ -12,10 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * {@link AbstractEntity} ist die abstrakte Basisklasse für alle ILST-Entitäten.
+ * {@link AbstractEntity} ist die abstrakte Basisklasse fÃ¼r alle ILST-EntitÃ¤ten.
  * 
  * @author Mark Bretfeld
- * @version 0.1
  * 
  */
 @MappedSuperclass
@@ -23,7 +22,7 @@ public abstract class AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Die Id einer jeden Entität */
+	/** Die Id einer jeden Entitï¿½t */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
