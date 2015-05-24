@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;
+import de.bretfeld.ilst.stammdaten.entity.Alarmgruppe;
 
 /**
  * Hier werden Alarmierung nach dem ZVEI-Standard ausgef�hrt. Die Klasse erh�lt
- * eine Liste an zu alarmierenden {@link Einsatzeinheit}en und zieht sich aus
+ * eine Liste an zu alarmierenden {@link Alarmgruppe}en und zieht sich aus
  * diesen die jeweiligen Alarmschleifen. Diese Schleifen werden dann �ber eine
  * SourceDataLine ausgegeben.
  * 

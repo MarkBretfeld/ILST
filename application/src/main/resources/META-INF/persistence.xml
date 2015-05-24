@@ -3,10 +3,6 @@
 	xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="ILST" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>de.bretfeld.ilst.stammdaten.entity.Leitstelle</class>
-		<class>de.bretfeld.ilst.stammdaten.entity.Stadtteil</class>
-		<class>de.bretfeld.ilst.stammdaten.entity.Stadt</class>
-		<class>de.bretfeld.ilst.stammdaten.entity.Strasse</class>
 		<properties>
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ilst" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

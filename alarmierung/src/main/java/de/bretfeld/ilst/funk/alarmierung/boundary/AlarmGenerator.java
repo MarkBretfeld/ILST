@@ -9,7 +9,7 @@ import de.bretfeld.ilst.funk.basic.control.TonePlayer;
 import de.bretfeld.ilst.funk.basic.exception.TonePlayerException;
 import de.bretfeld.ilst.funk.fms.boundary.FMSTonCreator;
 import de.bretfeld.ilst.stammdaten.entity.Alarmschleife;
-import de.bretfeld.ilst.stammdaten.entity.Einsatzeinheit;
+import de.bretfeld.ilst.stammdaten.entity.Alarmgruppe;
 
 /**
  * Der {@link AlarmGenerator} bekommt eine Liste mit den zu alarmierenden
@@ -35,28 +35,27 @@ public class AlarmGenerator {
         // defeat direct instantiation
     }
 
-    public void alarm(Queue<Einsatzeinheit> einsatzeinheiten) throws TonePlayerException {
+    public void alarm(Queue<Alarmgruppe> einsatzeinheiten) throws TonePlayerException {
 
         if (einsatzeinheiten == null || einsatzeinheiten.isEmpty()) {
             throw new IllegalArgumentException(
                     "List von Einsatzeinheiten darf nicht leer oder null sein");
         }
 
-        for (Einsatzeinheit einsatzeinheit : einsatzeinheiten) {
+        for (Alarmgruppe einsatzeinheit : einsatzeinheiten) {
 
-            FMSTonCreator fmsTon = new FMSTonCreator();
+            FMSTonCreator fmsTon = FMSTonCreator.getInstance();
             for (Alarmschleife alarmschleife : einsatzeinheit
                     .getAlarmschleifen()) {
 
-                fmsTon.createFMSTonLeitstelle("79678282C");
+                fmsTon.createFMSTonLeitstelle("796782823");
+                fmsTon.createFMSTonFahrzeug("7967828215");
             }
 
             for (Alarmschleife alarmschleife : einsatzeinheit
                     .getAlarmschleifen()) {
 
                 ByteArrayOutputStream alarmierungStream = new ByteArrayOutputStream();
-
-                System.out.println("Alarmierung Einheit: " + einsatzeinheit.getName());
 
                 Alarmierung alarmierung = AlarmFactory.createAlarmierung(alarmschleife);
 

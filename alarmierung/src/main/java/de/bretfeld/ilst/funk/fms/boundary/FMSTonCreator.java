@@ -40,7 +40,7 @@ public class FMSTonCreator extends AbstractTonerzeuger {
 
         generateVorlaufBlock(charList);
         generateFahrzeugCode(fahrzeugCode, charList);
-        String lastBits = "1111";
+        String lastBits = "111100000000";
         addBitsToCharList(charList, lastBits.toCharArray());
 
         List<Integer> frequencyForBits = getFrequencyForBits(charList);
@@ -59,7 +59,7 @@ public class FMSTonCreator extends AbstractTonerzeuger {
 
         generateVorlaufBlock(charList);
         generateFahrzeugCode(fahrzeugCode, charList);
-        String lastBits = "1011";
+        String lastBits = "101100000000";
         addBitsToCharList(charList, lastBits.toCharArray());
 
         List<Integer> frequencyForBits = getFrequencyForBits(charList);
@@ -74,11 +74,10 @@ public class FMSTonCreator extends AbstractTonerzeuger {
 	public static void main(String[] args) throws TonePlayerException {
 
 		new FMSTonCreator().createFMSTonFahrzeug("976782822");
-        new FMSTonCreator().createFMSTonLeitstelle("9767828215");
     }
 
     private void generateVorlaufBlock(List<Character> charList) {
-		String vorlaufAndBlock = "11111111111100011010";
+		String vorlaufAndBlock = "111111111100011010";
 	    addBitsToCharList(charList, vorlaufAndBlock.toCharArray());
 	}
 
@@ -144,7 +143,7 @@ public class FMSTonCreator extends AbstractTonerzeuger {
 	private ByteArrayOutputStream erzeugeToene(List<Integer> toene,
 	        ByteArrayOutputStream stream) {
 	    for (Integer ton : toene) {
-	        stream = erzeugeToene(0.8, 100, stream, ton, 0);
+	        stream = erzeugeToene(0.8333333333333333, 100, stream, ton, 0);
 	    }
 	    return stream;
 	}

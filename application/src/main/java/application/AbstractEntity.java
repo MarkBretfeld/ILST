@@ -5,7 +5,7 @@ package application;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,14 +18,14 @@ import javax.persistence.MappedSuperclass;
  * 
  */
 @MappedSuperclass
+@Entity
 public abstract class AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Die Id einer jeden Entit�t */
+	/** Die Id einer jeden Entity */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
 	private Long id;
 
 	public Long getId() {

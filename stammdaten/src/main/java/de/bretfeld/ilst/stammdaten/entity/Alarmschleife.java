@@ -3,7 +3,7 @@ package de.bretfeld.ilst.stammdaten.entity;
 import de.bretfeld.ilst.stammdaten.control.AlarmTyp;
 
 /**
- * Die Klasse beschreibt den Aufbau der Alarmschleife und mit welchen Zus�tzen
+ * Die Klasse beschreibt den Aufbau der Alarmschleife und mit welchen Zusätzen
  * alarmiert werden soll.
  * 
  * @author Mark Bretfeld
